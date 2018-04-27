@@ -1,5 +1,5 @@
 import * as THREE from "three";
-
+import dat from 'dat.gui';
 
 //创建场景.
 let scene = new THREE.Scene();
@@ -62,12 +62,19 @@ scene.add(plane);
 scene.add(cube);
 scene.add(spotLight);
 
+
+const gui = new dat.GUI();
+let option = {
+    "rotationSpeed":0.01
+};
+gui.add(option,"rotationSpeed",0,0.2,0.01);
+
 //渲染循环
 function animate()
 {
     requestAnimationFrame(animate);
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.02
+    cube.rotation.x += option.rotationSpeed * 1 ;
+    cube.rotation.y += option.rotationSpeed * 2
     
     renderer.render(scene, camera);
 }
