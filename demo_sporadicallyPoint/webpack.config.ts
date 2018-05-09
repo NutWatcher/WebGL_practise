@@ -41,11 +41,12 @@ module.exports = {
             {
                 from: __dirname + "/../threeJs/three.min.js",
                 to: __dirname + "/dist/public"
-            },
-            {
-                from: __dirname + '/src/shader',
-                to: __dirname + "/dist/public"
             }
+            // ,
+            // {
+            //     from: __dirname + '/src/shader',
+            //     to: __dirname + "/dist/public"
+            // }
         ])
 
     ]
