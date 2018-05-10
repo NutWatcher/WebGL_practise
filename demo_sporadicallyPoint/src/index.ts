@@ -22,17 +22,15 @@ import WebGLInit from './init'
 let webGLInit = new WebGLInit();
 document.body.appendChild(webGLInit.renderer.domElement);
 
-const PointCount = 100;
+const PointCount = 1000;
 
 let pointGeometry = new THREE.Geometry();
- 
-for (let i = 0 ; i < PointCount ; i ++){
+for (let i = 0; i < PointCount; i++) {
     let pointVertext = new THREE.Vector3(
-        THREE.Math.randFloat(0, 10), 
-        THREE.Math.randFloat(0, 10), 
-        THREE.Math.randFloat(-10, -20)); 
+        THREE.Math.randFloat(-100, 100),
+        THREE.Math.randFloat(-100, 100),
+        THREE.Math.randFloat(-10, -20));
     pointGeometry.vertices.push(pointVertext);
-    console.log( THREE.Math.randFloatSpread(100));
 }
 
 let uniforms = {
@@ -50,8 +48,7 @@ let pointMaterial = new THREE.ShaderMaterial({
     fragmentShader: String(fragmentPoint_shader),
     transparent: true
 });
-let points=new THREE.Points(pointGeometry, pointMaterial);
-
+let points = new THREE.Points(pointGeometry, pointMaterial);
 let pointGroup = new THREE.Group();
 
 
@@ -61,42 +58,26 @@ webGLInit.scene.add(webGLInit.ambientLight);
 webGLInit.scene.add(webGLInit.spotLight);
 webGLInit.scene.add(webGLInit.axes);
 
-let step = 0;
-
-const lifeCycle = 5;
-
 const gui = new dat.GUI();
+let rotationStep = 0 ;
 let option = {
     "time": 0.01,
-    "y":10*Math.abs(Math.cos(0.01*0.10)),
-    "z":10*Math.abs(Math.cos(0.01*0.10))
+    "step": 20,
+    "z": 10 * Math.abs(Math.cos(0.01 * 0.10))
 };
-gui.add(option,"time");
-gui.add(option,"y",-100 , 100);
-gui.add(option,"z",-100 , 100);
+gui.add(option, "time");
+gui.add(option, "step", 1, 500);
 function render() {
-    // cube.rotation.y = step += 0.001;
-    // cube.rotation.x = step;
-    // cube.rotation.z = step;
-
-    // (cube.material as Array<THREE.ShaderMaterial>).forEach(function (e) {
-    //     e.uniforms.time.value += 0.01;
-    // });
-    step += 0.1;
-   // points.rotation.y = step;
-//points.rotation.x = step;
-  //  points.rotation.z = step;
-    option.time += 0.05 ;
-    option.y = 10*Math.abs(Math.cos(option.time*0.10)) ;
-    option.z = Math.abs(-10*Math.abs(Math.cos(option.time*0.10*2.0))) -10 ;
+    rotationStep += option.step / 10000;
+    // points.rotation.y = step + THREE.Math.randFloat(0.0001, 0.0005);
+    //points.rotation.x = step + THREE.Math.randFloat(0.001, 0.0005);
+    points.rotation.z = rotationStep + THREE.Math.randFloat(0.0001, 0.0005);
+    option.time += 0.05;
+    option.z = Math.abs(-10 * Math.abs(Math.cos(option.time * 0.10 * 2.0))) - 10;
     (points.material as THREE.ShaderMaterial).uniforms.time.value = option.time;
     for (var i in gui.__controllers) {
         gui.__controllers[i].updateDisplay();
-      }
-    // cube.material = (cube.material as Array<THREE.ShaderMaterial>).filter(
-    //     (v) => { return v.uniforms.time.value < lifeCycle }
-    // );
-    // render using requestAnimationFrame
+    }
     requestAnimationFrame(render);
     webGLInit.renderer.render(webGLInit.scene, webGLInit.camera);
 }
