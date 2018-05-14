@@ -12,12 +12,16 @@ module.exports = {
     externals: {
         three: "THREE",
     },
+    resolve: {
+        extensions: ['.ts','.glsl','.js', '.html']  
+    },
     //调试工具
     devtool: "source-map",
     //模块加载器设置
     module: {
         rules: [
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+            { test: /\.(glsl)$/, use: 'raw-loader' }
         ]
     },
     //调试服务

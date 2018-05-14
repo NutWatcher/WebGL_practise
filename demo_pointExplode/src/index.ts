@@ -1,34 +1,45 @@
 import * as THREE from "three";
+import dat from 'dat.gui';
+import WebGLInit from './init';
 
-
-//创建场景.
-let scene = new THREE.Scene();
-//相机
-let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-//渲染器
-let renderer = new THREE.WebGLRenderer();
-//设置画布大小
-renderer.setSize(window.innerWidth, window.innerHeight);
-//加入到body
-document.body.appendChild(renderer.domElement);
-
-
+let webGLInit = new WebGLInit();
+document.body.appendChild(webGLInit.renderer.domElement);
+webGLInit.scene.add(webGLInit.camera);
+webGLInit.scene.add(webGLInit.ambientLight);
+webGLInit.scene.add(webGLInit.spotLight);
+webGLInit.scene.add(webGLInit.axes);
+const gui = new dat.GUI();
+let rotationStep = 0 ;
+let option = {
+    "x": "0",
+    "y": "0",
+    "z": "0"
+};
+gui.add(option, "x");
+gui.add(option, "y");
 
 //第二步,创建几何体.
+var geometry = new THREE.PlaneGeometry( 5, 20, 32 );
+var material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+var plane = new THREE.Mesh( geometry, material );
+webGLInit.scene.add( plane );
 
-let geometry = new THREE.BoxGeometry(1, 1, 1);
-let material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-let cube = new THREE.Mesh(geometry, material);
-//加入到场景
-scene.add(cube);
 
-//设置相机位置
-camera.position.z = 5;
+
+
 
 //渲染循环
-function animate()
-{
-    requestAnimationFrame(animate);
-    renderer.render(scene, camera);
+function render() {
+    for (var i in gui.__controllers) {
+        gui.__controllers[i].updateDisplay();
+    }
+    requestAnimationFrame(render);
+    webGLInit.renderer.render(webGLInit.scene, webGLInit.camera);
 }
-animate();
+let onDocumentMouseUp = (event) => {
+    console.log(webGLInit.renderer.domElement.innerWidth);
+    option.x = ((event.clientX / window.innerWidth) * 2 - 1).toString();
+    option.y = (-(event.clientY / window.innerHeight) * 2 + 1).toString();
+}
+document.body.onmousedown = onDocumentMouseUp;
+render();
