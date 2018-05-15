@@ -2,7 +2,7 @@ import * as THREE from 'three' ;
  export default class WebGLInit{
     scene : any;
     camera : any;
-    renderer : any;
+    renderer : THREE.WebGLRenderer;
     ambientLight : any;
     spotLight : any;
     axes : any;
