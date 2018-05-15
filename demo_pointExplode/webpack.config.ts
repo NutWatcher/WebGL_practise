@@ -2,6 +2,7 @@ var path = require('path');
 var HtmlWebPackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
+    mode: "development",
     //项目入口
     entry: "./src/index.ts",
     //输出设置

@@ -1,11 +1,11 @@
 import * as THREE from 'three' ;
  export default class WebGLInit{
-    scene : any;
-    camera : any;
+    scene : THREE.Scene;
+    camera : THREE.PerspectiveCamera;
     renderer : THREE.WebGLRenderer;
-    ambientLight : any;
-    spotLight : any;
-    axes : any;
+    ambientLight : THREE.AmbientLight;
+    spotLight : THREE.SpotLight;
+    axes : THREE.AxesHelper;
     constructor(){
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
