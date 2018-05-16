@@ -22,7 +22,10 @@ gui.add(option, "y");
 
 //第二步,创建几何体.
 var geometry = new THREE.PlaneGeometry(20, 20, 10);
-var material = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide });
+var material = new THREE.MeshBasicMaterial({ 
+        color: 0x666666, 
+        side: THREE.DoubleSide 
+    });
 var plane = new THREE.Mesh(geometry, material);
 
 webGLInit.scene.add( plane );
@@ -53,11 +56,12 @@ let createPoint = (location:Vector3) => {
         uniforms: uniforms,
         vertexShader: String(vertexPoint_shader),
         fragmentShader: String(fragmentPoint_shader),
-        transparent: true
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        depthTest:false
     });
-
     let pointGeometry = new THREE.Geometry();
-    pointGeometry.vertices.push(new THREE.Vector3(location.x, location.y, 1));
+    pointGeometry.vertices.push(new THREE.Vector3(location.x, location.y, 1+time));
     let point = new THREE.Points(pointGeometry, pointMaterial);
     webGLInit.scene.add(point);
     Points.add(point);

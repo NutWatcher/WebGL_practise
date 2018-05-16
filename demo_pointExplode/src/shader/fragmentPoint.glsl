@@ -11,7 +11,14 @@ void main(void)
         gl_FragColor = vec4(
         1,
         0.0 ,
-        0.0 , 1.0 - 1.0 * (time - start) / 5.0);
+        0.0 , 1 );
+        if ( (start - 2.0*floor(start/2.0)) > 0.5 ){
+            
+            gl_FragColor = vec4(
+            0.0,
+            1 ,
+            0.0 , 1 );
+        }
     }
     else{ discard; }
 }
