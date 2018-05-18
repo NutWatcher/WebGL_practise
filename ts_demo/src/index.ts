@@ -1,34 +1,46 @@
+/// <reference path="../typescript.d.ts" /> 
 import * as THREE from "three";
+import * as Stats from "stats-js";
+import * as dat from 'dat.gui';
+import WebGLInit from './init';
 
-
-//创建场景.
-let scene = new THREE.Scene();
-//相机
-let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-//渲染器
-let renderer = new THREE.WebGLRenderer();
-//设置画布大小
-renderer.setSize(window.innerWidth, window.innerHeight);
-//加入到body
-document.body.appendChild(renderer.domElement);
-
-
+let webGLInit = new WebGLInit();
+document.body.appendChild(webGLInit.renderer.domElement);
 
 //第二步,创建几何体.
+var geometry = new THREE.PlaneGeometry(20, 20, 10);
+var material = new THREE.MeshBasicMaterial({ 
+        color: 0xffffff, 
+        side: THREE.DoubleSide
+    });
+var plane = new THREE.Mesh(geometry, material);
+webGLInit.scene.add( plane );
+webGLInit.scene.add(webGLInit.camera);
+webGLInit.scene.add(webGLInit.ambientLight);
+webGLInit.scene.add(webGLInit.spotLight);
+webGLInit.scene.add(webGLInit.axes);
 
-let geometry = new THREE.BoxGeometry(1, 1, 1);
-let material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-let cube = new THREE.Mesh(geometry, material);
-//加入到场景
-scene.add(cube);
 
-//设置相机位置
-camera.position.z = 5;
+const gui = new dat.GUI();
+let option = {
+    "x": "1",
+    "y": "1",
+    "z": "0"
+};
+gui.add(option, "x");
+gui.add(option, "y");
+
+var stats = new Stats();
+stats.setMode(1); // 0: fps, 1: ms
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.left = '0px';
+stats.domElement.style.top = '0px';
+document.body.appendChild(stats.domElement);
 
 //渲染循环
-function animate()
-{
-    requestAnimationFrame(animate);
-    renderer.render(scene, camera);
+function render() {
+    webGLInit.renderer.render(webGLInit.scene, webGLInit.camera);
+    requestAnimationFrame(render);
+    stats.update();
 }
-animate();
+render();

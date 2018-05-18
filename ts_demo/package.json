@@ -1,8 +1,8 @@
 {
-    "name": "ts_demo",
+    "name": "demo_import_model",
     "version": "1.0.0",
     "description": "",
-    "main": "greeter.js",
+    "main": "index.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "webpack-dev-server"
@@ -14,14 +14,17 @@
         "@types/three": "^0.91.10",
         "awesome-typescript-loader": "^5.0.0",
         "copy-webpack-plugin": "^4.5.1",
-        "html-webpack-plugin": "^3.2.0",
-        "three": "^0.92.0",
         "dat.gui": "^0.7.1",
+        "html-webpack-plugin": "^3.2.0",
+        "stats-js": "^1.0.0-alpha1",
+        "three": "^0.92.0",
         "typescript": "^2.8.3",
         "webpack": "^4.6.0",
         "webpack-dev-server": "^3.1.3"
     },
     "devDependencies": {
-        "webpack-cli": "^2.0.15"
+        "webpack-cli": "^2.0.15",
+        "loglevel": "^1.6.1",
+        "raw-loader": "^0.5.1"
     }
 }
