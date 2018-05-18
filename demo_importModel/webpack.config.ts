@@ -39,8 +39,12 @@ module.exports = {
             }),
         new CopyWebpackPlugin([
             {
-                from: __dirname + "/../threeJs/three.min.js",
+                from: __dirname + "/../threeJs",
                 to: __dirname + "/dist/public"
+            },
+            {
+                from: __dirname + "/model",
+                to: __dirname + "/dist/model"
             }
         ])
 
