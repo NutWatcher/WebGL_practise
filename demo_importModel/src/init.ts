@@ -10,15 +10,15 @@ export default class WebGLInit{
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.renderer = new THREE.WebGLRenderer(        );
-        this.ambientLight = new THREE.AmbientLight(0x0c0c0c);
-        this.spotLight = new THREE.SpotLight(0xffffff);
+        this.ambientLight = new THREE.AmbientLight(0xffffff);
+        this.spotLight = new THREE.SpotLight(0xffdddd);
         this.axes=new THREE.AxesHelper(20);
 
 
-        this.camera.position.x = 10;
-        this.camera.position.y = 10;
-        this.camera.position.z = 50;
-        this.camera.lookAt(new THREE.Vector3(0, -10, 0));
+        this.camera.position.x = -5;
+        this.camera.position.y = 5;
+        this.camera.position.z = 5;
+        this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
         this.renderer.setClearColor(new THREE.Color(0xEEEEEE));
         this.renderer.shadowMap.enabled = true;
