@@ -1,3 +1,3 @@
 # WebGL_practise
-test
-33
+
+WebGL 练习集
